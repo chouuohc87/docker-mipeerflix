@@ -31,7 +31,7 @@ iptables -t nat -A OUTPUT -p tcp --dport 80 -j REDSOCKS
 iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDSOCKS
 iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDSOCKS
 
-redsocks -c /etc/redsocks.conf
+redsocks -c /etc/redsocks.conf &
 
 sleep 5
 curl icanhazip.com
