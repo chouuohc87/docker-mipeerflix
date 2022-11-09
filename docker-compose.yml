@@ -8,4 +8,6 @@ services:
         ports:
             - "3000:3000"
             - "3000:3000/udp"
+        cap_drop:
+            - NET_ADMIN
         restart: unless-stopped
