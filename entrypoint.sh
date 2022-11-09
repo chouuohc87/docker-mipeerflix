@@ -1,13 +1,9 @@
 #!/bin/bash
 
-chisel client --auth ubuntu:ubuntu https://85ptc4-5000.sse.codesandbox.io 1080:socks &
-sleep 5
-
-curl -x socks5://127.0.0.1:1080 icanhazip.com
-
 # Create new chain
 iptables -t nat -N REDSOCKS
 
+# Ignore Chisel traffic
 iptables -t nat -A REDSOCKS -d 85ptc4-5000.sse.codesandbox.io -j RETURN
 
 # Ignore LANs and some other reserved addresses.
@@ -24,14 +20,14 @@ iptables -t nat -A REDSOCKS -d 240.0.0.0/4 -j RETURN
 iptables -t nat -A REDSOCKS -p tcp -j REDIRECT --to-ports 6666
 iptables -t nat -A REDSOCKS -p udp -j REDIRECT --to-ports 8888
 
-# Redirect all HTTP and HTTPS outgoing packets through Redsocks
-#iptables -t nat -A OUTPUT -p tcp --dport 443 -j REDSOCKS
-#iptables -t nat -A OUTPUT -p tcp --dport 80 -j REDSOCKS
-
+# Redirect all outgoing packets through Redsocks
 iptables -t nat -A OUTPUT -j REDSOCKS
 
 # Defining the following rules in the PREROUTING chain. For redirecting incomming packets to the REDSOCKS chain. 
 iptables -t nat -A PREROUTING -j REDSOCKS
+
+chisel client --auth ubuntu:ubuntu https://85ptc4-5000.sse.codesandbox.io 1080:socks &
+sleep 5
 
 redsocks -c /etc/redsocks.conf
 
