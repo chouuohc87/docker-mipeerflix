@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Create new chain
 iptables -t nat -N REDSOCKS
