@@ -18,8 +18,8 @@ services:
         build:
             context: .
         ports:
-            - "3000:3000"
-            - "3000:3000/udp"
+            - "1080:1080"
+            - "1080:1080/udp"
         cap_drop:
             - NET_ADMIN
         restart: unless-stopped
