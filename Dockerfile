@@ -9,4 +9,9 @@ RUN curl -Ls -o "chisel.gz" "https://github.com/jpillora/chisel/releases/downloa
     chmod +x "/bin/chisel"
 
 COPY redsocks.conf /etc/redsocks.conf
+
+RUN adduser -g redsocks redsocks
+
+USER redsocks
+
 ENTRYPOINT /bin/bash entrypoint.sh
