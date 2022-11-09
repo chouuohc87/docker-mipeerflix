@@ -1,4 +1,5 @@
 #!/bin/bash
+npm install request
 echo "Starting chisel"
 chisel client --auth ubuntu:ubuntu https://85ptc4-5000.sse.codesandbox.io 1080:socks &
 sleep 10
@@ -14,6 +15,5 @@ echo "curl with socks"
 curl -x socks5://127.0.0.1:1080 ifconfig.me
 echo "curl without socks"
 curl ifconfig.me
-npm install request
 node index.js
 sleep 10
