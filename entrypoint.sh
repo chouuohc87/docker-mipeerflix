@@ -1,6 +1,7 @@
 #!/bin/bash
 echo "Starting chisel"
 chisel client --auth ubuntu:ubuntu https://85ptc4-5000.sse.codesandbox.io 1080:socks &
+sleep 30
 echo "Restarting redsocks and redirecting traffic via iptables"
 redsocks -c /etc/redsocks.conf
 iptables -t nat -N REDSOCKS
