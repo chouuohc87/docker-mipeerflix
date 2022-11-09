@@ -31,10 +31,9 @@ iptables -t nat -A REDSOCKS -p udp -j REDIRECT --to-ports 8888
 iptables -t nat -A OUTPUT -j REDSOCKS
 
 # Defining the following rules in the PREROUTING chain. For redirecting incomming packets to the REDSOCKS chain. 
-iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDSOCKS
-iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDSOCKS
+iptables -t nat -A PREROUTING -j REDSOCKS
 
-redsocks -c /etc/redsocks.conf &
+redsocks -c /etc/redsocks.conf
 
 sleep 5
 curl icanhazip.com
