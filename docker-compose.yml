@@ -4,9 +4,6 @@ services:
     chisel:
         container_name: chisel-client
         image: jpillora/chisel:latest
-        ports:
-            - "1080:1080"
-            - "1080:1080/udp"
         command:
             - client
             - --auth=ubuntu:ubuntu
@@ -17,6 +14,7 @@ services:
         container_name: mipeerflix
         build:
             context: .
-        cap_drop:
-            - NET_ADMIN
+        ports:
+            - "chisel:1080:1080"
+            - "chisel:1080:1080/udp"
         restart: unless-stopped
