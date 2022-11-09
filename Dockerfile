@@ -10,7 +10,7 @@ RUN curl -Ls -o "chisel.gz" "https://github.com/jpillora/chisel/releases/downloa
 
 COPY redsocks.conf /etc/redsocks.conf
 
-RUN adduser -g redsocks redsocks
+RUN adduser -D -g redsocks redsocks
 
 USER redsocks
 
