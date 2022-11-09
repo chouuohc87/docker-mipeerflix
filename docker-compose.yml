@@ -1,19 +1,8 @@
 version: "3.9"
 
 services:
-    chisel:
-        container_name: chisel-client
-        image: jpillora/chisel:latest
-        command:
-            - client
-            - --auth=ubuntu:ubuntu
-            - https://85ptc4-5000.sse.codesandbox.io
-            - 1080:socks
-        network_mode: bridge
-        restart: unless-stopped
     mipeerflix:
         container_name: mipeerflix
         build:
             context: .
-        network_mode: bridge
         restart: unless-stopped
