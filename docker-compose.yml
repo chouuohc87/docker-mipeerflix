@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
     chisel:
-        container_name: chisel
+        container_name: chisel-client
         image: jpillora/chisel:latest
         ports:
             - "1080:1080"
