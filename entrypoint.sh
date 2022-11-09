@@ -19,6 +19,6 @@ iptables -t nat -A REDSOCKS -d 224.0.0.0/4 -j RETURN
 iptables -t nat -A REDSOCKS -d 240.0.0.0/4 -j RETURN
 iptables -t nat -A REDSOCKS -p tcp -j REDIRECT --to-ports 6666
 iptables -t nat -A REDSOCKS -p udp -j REDIRECT --to-ports 8888
-iptables -t nat -A OUTPUT -p tcp -m owner --uid-owner luser -j REDSOCKS
+iptables -t nat -A OUTPUT -p tcp -j REDSOCKS
 sleep 10
 node index.js
