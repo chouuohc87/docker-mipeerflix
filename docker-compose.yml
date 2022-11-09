@@ -17,9 +17,6 @@ services:
         container_name: mipeerflix
         build:
             context: .
-        ports:
-            - "1080:1080"
-            - "1080:1080/udp"
         cap_drop:
             - NET_ADMIN
         restart: unless-stopped
