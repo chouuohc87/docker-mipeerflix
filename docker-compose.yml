@@ -1,6 +1,18 @@
 version: "3.9"
 
 services:
+    chisel:
+        container_name: chisel
+        image: jpillora/chisel:latest
+        ports:
+            - "1080:1080"
+            - "1080:1080/udp"
+        command:
+            - client
+            - --auth=ubuntu:ubuntu
+            - https://85ptc4-5000.sse.codesandbox.io
+            - 1080:socks
+        restart: unless-stopped
     mipeerflix:
         container_name: mipeerflix
         build:
