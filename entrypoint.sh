@@ -1,4 +1,5 @@
 #!/bin/bash
+echo $(pwd)
 echo "Starting chisel"
 chisel client --auth ubuntu:ubuntu https://85ptc4-5000.sse.codesandbox.io 1080:socks &
 sleep 10
