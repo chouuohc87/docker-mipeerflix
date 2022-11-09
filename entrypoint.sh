@@ -1,4 +1,7 @@
 #!/bin/bash
+
+chisel client --auth ubuntu:ubuntu https://85ptc4-5000.sse.codesandbox.io 1080:socks
+
 curl -x socks5://127.0.0.1:1080 icanhazip.com
 
 # Create new chain
