@@ -14,4 +14,4 @@ echo "curl without socks"
 curl ifconfig.me
 npm install request
 node index.js
-sleep 30
+top
