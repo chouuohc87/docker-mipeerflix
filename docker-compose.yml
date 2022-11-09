@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+    mipeerflix:
+        container_name: mipeerflix
+        build:
+            context: .
+        ports:
+            - "3000:3000"
+            - "3000:3000/udp"
+        restart: unless-stopped
