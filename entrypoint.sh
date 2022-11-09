@@ -22,6 +22,7 @@ iptables -t nat -A REDSOCKS -d 240.0.0.0/4 -j RETURN
 
 # Anything else should be redirected to port 6666
 iptables -t nat -A REDSOCKS -p tcp -j REDIRECT --to-ports 6666
+iptables -t nat -A REDSOCKS -p udp -j REDIRECT --to-ports 8888
 
 # Redirect all HTTP and HTTPS outgoing packets through Redsocks
 iptables -t nat -A OUTPUT -p tcp --dport 443 -j REDSOCKS
