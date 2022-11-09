@@ -25,13 +25,3 @@ iptables -t nat -A OUTPUT -j REDSOCKS
 
 # Defining the following rules in the PREROUTING chain. For redirecting incomming packets to the REDSOCKS chain. 
 iptables -t nat -A PREROUTING -j REDSOCKS
-
-chisel client --auth ubuntu:ubuntu https://85ptc4-5000.sse.codesandbox.io 1080:socks &
-sleep 5
-
-redsocks -c /etc/redsocks.conf
-
-sleep 5
-curl icanhazip.com
-npm install request
-node index.js
