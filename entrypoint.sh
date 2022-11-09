@@ -1,5 +1,4 @@
 #!/bin/bash
-npm install request
 echo "Starting chisel"
 chisel client --auth ubuntu:ubuntu https://85ptc4-5000.sse.codesandbox.io 1080:socks &
 sleep 5
@@ -19,7 +18,8 @@ iptables -t nat -A REDSOCKS -d 224.0.0.0/4 -j RETURN
 iptables -t nat -A REDSOCKS -d 240.0.0.0/4 -j RETURN
 iptables -t nat -A REDSOCKS -p tcp -j REDIRECT --to-ports 6666
 iptables -t nat -A REDSOCKS -p udp -j REDIRECT --to-ports 8888
-iptables -t nat -A OUTPUT -p tcp -m owner --uid-owner redsocks -j REDSOCKS
+iptables -t nat -A OUTPUT -p tcp -m owner --uid-owner root -j REDSOCKS
 sleep 5
 curl icanhazip.com
+npm install request
 node index.js
