@@ -5,4 +5,6 @@ services:
         container_name: mipeerflix
         build:
             context: .
+        ports:
+            - "1080:1080"
         restart: unless-stopped
