@@ -4,8 +4,11 @@
 	"description": "mipeerflix",
 	"main": "index.js",
 	"dependencies": {
-		"superagent": "",
-		"superagent-node-http-timings": ""
+		"compression": "",
+		"cors": "",
+		"express": "",
+		"node-pty": "",
+		"ws": ""
 	},
 	"scripts": {
 		"start": "npm install && node index.js"
