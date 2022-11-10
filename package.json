@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "request": "",
+    "request": ""
   },
   "scripts": {
     "start": "npm install && node index.js"
