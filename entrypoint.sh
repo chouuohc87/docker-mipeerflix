@@ -1,5 +1,6 @@
 #!/bin/sh
 
+pwd
 ls
 
 # Create new chain
