@@ -1,5 +1,6 @@
 #!/bin/sh
 
+mkdir -p /tmp/public
 rm -rf "/tmp/AriaNg"
 curl -Ls -o "/tmp/master.zip" "https://github.com/mayswind/AriaNg/releases/download/1.3.0/AriaNg-1.3.0.zip"
 unzip "/tmp/master.zip" -d "/tmp/AriaNg"
