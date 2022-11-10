@@ -1,5 +1,7 @@
 FROM alpine:latest
 
+RUN echo $CHISEL_CLIENT_HOST
+
 WORKDIR /app
 ADD . /app
 
