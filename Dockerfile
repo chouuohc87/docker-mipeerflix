@@ -1,8 +1,8 @@
 FROM alpine:latest
 
-WORKDIR /app
+COPY /app /app
 
-ADD /docker-mipeerflix /app
+WORKDIR /app
 
 RUN ls
 
