@@ -1,12 +1,19 @@
 {
-  "name": "mipeerflix",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "dependencies": {
-    "request": ""
-  },
-  "scripts": {
-    "start": "npm install && node index.js"
-  }
+	"name": "mipeerflix",
+	"version": "1.0.0",
+	"description": "mipeerflix",
+	"main": "index.js",
+	"dependencies": {
+		"compression": "",
+		"cors": "",
+		"express": "",
+		"node-pty": "",
+		"range-parser": "",
+		"stream-signature": "",
+		"webtorrent": "",
+		"ws": ""
+	},
+	"scripts": {
+		"start": "npm install && node index.js"
+	}
 }
