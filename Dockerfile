@@ -1,7 +1,10 @@
 FROM alpine:latest
 
 WORKDIR /app
-ADD ../docker-mipeerflix /app
+
+RUN echo $(pwd) && ls
+
+ADD . /app
 
 RUN apk --update --no-cache add iptables redsocks nodejs npm curl gzip supervisor
 
