@@ -1,8 +1,5 @@
 #!/bin/sh
 
-pwd
-ls
-
 # Create new chain
 iptables -t nat -N REDSOCKS
 
