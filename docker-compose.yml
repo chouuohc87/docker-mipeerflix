@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-    mipeerflix:
+    server:
         container_name: mipeerflix
         build:
             context: .
