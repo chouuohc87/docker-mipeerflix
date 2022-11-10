@@ -16,4 +16,4 @@ RUN ls
 COPY redsocks.conf /etc/redsocks.conf
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 
-CMD /bin/sh entrypoint.sh
+CMD entrypoint.sh
