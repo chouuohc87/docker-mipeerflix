@@ -1,0 +1,12 @@
+{
+  "name": "mipeerflix",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "request": "",
+  },
+  "scripts": {
+    "start": "npm install && node index.js"
+  }
+}
