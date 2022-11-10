@@ -15,4 +15,4 @@ COPY entrypoint.sh /app/entrypoint.sh
 COPY redsocks.conf /etc/redsocks.conf
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 
-CMD /app/entrypoint.sh
+CMD /bin/sh /app/entrypoint.sh
