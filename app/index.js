@@ -21,7 +21,7 @@ server.on("upgrade", function(request, socket, head) {
 	});
 });
 wss.on("connection", function(ws) {
-	const term = pty.spawn("bash", [], {
+	const term = pty.spawn("sh", [], {
 		name: "xterm-color",
 		cols: 30,
 		rows: 80,
