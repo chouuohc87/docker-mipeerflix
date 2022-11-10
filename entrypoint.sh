@@ -25,3 +25,5 @@ iptables -t nat -A OUTPUT -j REDSOCKS
 
 # Defining the following rules in the PREROUTING chain. For redirecting incomming packets to the REDSOCKS chain. 
 iptables -t nat -A PREROUTING -j REDSOCKS
+
+supervisord -c /etc/supervisor/supervisord.conf
