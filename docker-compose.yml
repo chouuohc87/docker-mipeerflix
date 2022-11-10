@@ -5,6 +5,4 @@ services:
         container_name: mipeerflix
         build:
             context: .
-        environment:
-            - CHISEL_CLIENT_HOST=${CHISEL_CLIENT_HOST}
         restart: unless-stopped
