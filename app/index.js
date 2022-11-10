@@ -9,7 +9,7 @@ const server = http.createServer(app);
 app.use(compression());
 app.use(cors());
 app.get("/", function(_, res) {
-	res.send("Hello world!");
+	res.send("aHello world!");
 });
 app.get("/ip", function(_, res) {
 	http.get({
