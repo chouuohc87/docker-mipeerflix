@@ -7,6 +7,7 @@ services:
             context: ../docker-mipeerflix
         ports:
             - "3000:3000"
-            - "3000:3000/udp"
+            - "6800:6800"
+            - "6800:6800/udp"
         restart: unless-stopped
         privileged: true
