@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo $CHISEL_CLIENT_HOST
+
 # Create new chain
 iptables -t nat -N REDSOCKS
 
