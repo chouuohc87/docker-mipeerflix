@@ -5,4 +5,7 @@ services:
         container_name: mipeerflix
         build:
             context: .
+        ports:
+            - "3000:3000"
+            - "3000:3000/udp"
         restart: unless-stopped
