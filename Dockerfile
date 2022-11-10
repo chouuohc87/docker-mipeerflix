@@ -2,9 +2,9 @@ FROM alpine:latest
 
 WORKDIR /app
 
-RUN echo $(pwd) && ls
-
 ADD . /app
+
+RUN echo $(pwd) && ls
 
 RUN apk --update --no-cache add iptables redsocks nodejs npm curl gzip supervisor
 
