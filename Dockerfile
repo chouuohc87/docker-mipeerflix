@@ -13,7 +13,7 @@ RUN curl -Ls -o "/tmp/chisel.gz" "https://github.com/jpillora/chisel/releases/do
     mv "/tmp/chisel" "/bin/chisel"; \
     chmod +x "/bin/chisel"
 
-COPY /docker-mipeerflix/redsocks.conf /etc/redsocks.conf
-COPY /docker-mipeerflix/supervisord.conf /etc/supervisor/supervisord.conf
+COPY redsocks.conf /etc/redsocks.conf
+COPY supervisord.conf /etc/supervisor/supervisord.conf
 
 CMD /bin/sh entrypoint.sh
