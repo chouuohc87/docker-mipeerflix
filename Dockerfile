@@ -13,6 +13,4 @@ RUN curl -Ls -o "chisel.gz" "https://github.com/jpillora/chisel/releases/downloa
 COPY redsocks.conf /etc/redsocks.conf
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 
-ENTRYPOINT /bin/sh entrypoint.sh
-
-CMD supervisord -c /etc/supervisor/supervisord.conf
+CMD /bin/sh entrypoint.sh
