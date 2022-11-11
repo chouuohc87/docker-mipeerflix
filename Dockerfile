@@ -2,16 +2,11 @@ FROM golang:latest AS builder
 
 RUN go install github.com/anacrolix/confluence@latest
 
-RUN ls -l /go/bin
-
-ENTRYPOINT [ "confluence" ]
-CMD [ "-h" ]
-
 FROM alpine:latest
 
 COPY --from=builder /go/bin/confluence /usr/local/bin/confluence
 
-RUN ls -l /usr/local/bin/
+RUN chmod +x "/usr/local/bin/confluence"
 
 COPY /app /app
 
