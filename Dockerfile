@@ -1,5 +1,7 @@
 FROM golang:alpine AS builder
 
+RUN apk add build-base
+
 RUN go install github.com/anacrolix/confluence@latest
 
 FROM alpine:latest
@@ -12,7 +14,7 @@ COPY /app /app
 
 WORKDIR /app
 
-RUN apk --update --no-cache add aria2 bash bash-completion build-base curl gzip iptables micro nodejs npm redsocks supervisor wget
+RUN apk add aria2 bash bash-completion build-base curl gzip iptables micro nodejs npm redsocks supervisor wget
 
 RUN curl -Ls -o "/tmp/chisel.gz" "https://github.com/jpillora/chisel/releases/download/v1.7.7/chisel_1.7.7_linux_arm64.gz"; \
     gzip -d "/tmp/chisel.gz"; \
