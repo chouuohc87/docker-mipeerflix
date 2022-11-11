@@ -3,11 +3,11 @@ FROM golang:latest
 
 RUN go install github.com/anacrolix/confluence@latest
 
-CMD ls bin/confluence
+CMD pwd && ls
 
 # FROM alpine:latest
 
-# COPY --from=builder /go/src/confluence/bin /usr/local/bin/confluence
+# COPY --from=builder bin/confluence /usr/local/bin/confluence
 
 # COPY /app /app
 
