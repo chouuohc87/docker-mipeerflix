@@ -3,7 +3,7 @@ FROM golang:latest
 
 RUN go install github.com/anacrolix/confluence@latest
 
-CMD ls
+CMD ls bin
 
 # FROM alpine:latest
 
