@@ -1,4 +1,17 @@
+FROM golang:latest AS builder
+
+WORKDIR /go/src/confluence/
+
+COPY ./go.mod .
+COPY ./go.sum .
+RUN go mod download -x
+
+COPY . .
+RUN go build -v -o bin
+
 FROM alpine:latest
+
+COPY --from=builder /go/src/confluence/bin /usr/local/bin/confluence
 
 COPY /app /app
 
@@ -8,8 +21,8 @@ RUN apk --update --no-cache add aria2 bash bash-completion build-base curl gzip 
 
 RUN curl -Ls -o "/tmp/chisel.gz" "https://github.com/jpillora/chisel/releases/download/v1.7.7/chisel_1.7.7_linux_arm64.gz"; \
     gzip -d "/tmp/chisel.gz"; \
-    mv "/tmp/chisel" "/bin/chisel"; \
-    chmod +x "/bin/chisel"
+    mv "/tmp/chisel" "/usr/local/bin/chisel"; \
+    chmod +x "/usr/local/bin/chisel"
 
 COPY entrypoint.sh /app/entrypoint.sh
 COPY redsocks.conf /etc/redsocks.conf
