@@ -9,7 +9,7 @@ CMD [ "-h" ]
 
 FROM alpine:latest
 
-COPY --from=builder confluence /usr/local/bin/confluence
+COPY --from=builder ./confluence /usr/local/bin/confluence
 
 RUN ls -l /usr/local/bin/
 
