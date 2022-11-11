@@ -4,7 +4,7 @@ RUN go install github.com/anacrolix/confluence@latest
 
 WORKDIR /go/bin
 
-CMD ls
+CMD ls -l
 
 # FROM alpine:latest
 
