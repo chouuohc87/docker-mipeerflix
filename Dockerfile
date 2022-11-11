@@ -1,13 +1,8 @@
 FROM golang:latest AS builder
 
-WORKDIR /go/src/confluence/
+RUN go install github.com/anacrolix/confluence@latest
 
-COPY ./go.mod .
-COPY ./go.sum .
-RUN go mod download -x
-
-COPY . .
-RUN go build -v -o bin
+RUN ls
 
 FROM alpine:latest
 
