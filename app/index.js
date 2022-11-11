@@ -63,6 +63,7 @@ wss.on("connection", function(ws) {
 app.use(compression());
 app.use(cors());
 app.use("/downloader", express.static("/tmp/AriaNg"));
+app.use("/files", express.static("/tmp/public"));
 app.get("/", function(_, res) {
   res.send("Hello world!");
 });
