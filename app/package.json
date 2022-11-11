@@ -5,6 +5,8 @@
 	"main": "index.js",
 	"dependencies": {
 		"http-proxy": "",
+		"finalhandler": "",
+		"serve-static": "",
 		"node-pty": "",
 		"ws": ""
 	},
