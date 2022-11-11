@@ -4,11 +4,14 @@ RUN apk add build-base
 
 RUN go install github.com/anacrolix/confluence@latest
 
+RUN go install github.com/smmr-software/mabel@latest
+
 FROM alpine:latest
 
 COPY --from=builder /go/bin/confluence /usr/local/bin/confluence
+COPY --from=builder /go/bin/mabel /usr/local/bin/mabel
 
-RUN chmod +x "/usr/local/bin/confluence"
+RUN chmod +x "/usr/local/bin/confluence" && chmod +x "/usr/local/bin/mabel"
 
 COPY /app /app
 
