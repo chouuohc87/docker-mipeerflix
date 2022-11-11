@@ -1,4 +1,5 @@
-FROM golang:latest AS builder
+# FROM golang:latest AS builder
+FROM golang:latest
 
 RUN go install github.com/anacrolix/confluence@latest
 
