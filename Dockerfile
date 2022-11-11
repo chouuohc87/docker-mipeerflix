@@ -4,25 +4,28 @@ RUN go install github.com/anacrolix/confluence@latest
 
 WORKDIR /go/bin
 
-CMD ls -l
+ENTRYPOINT [ "confluence" ]
+CMD [ "-h" ]
 
-# FROM alpine:latest
+FROM alpine:latest
 
-# COPY --from=builder /go/bin/confluence /usr/local/bin/confluence
+COPY --from=builder confluence /usr/local/bin/confluence
 
-# COPY /app /app
+RUN ls -l /usr/local/bin/
 
-# WORKDIR /app
+COPY /app /app
 
-# RUN apk --update --no-cache add aria2 bash bash-completion build-base curl gzip iptables micro nodejs npm redsocks supervisor wget
+WORKDIR /app
 
-# RUN curl -Ls -o "/tmp/chisel.gz" "https://github.com/jpillora/chisel/releases/download/v1.7.7/chisel_1.7.7_linux_arm64.gz"; \
-#     gzip -d "/tmp/chisel.gz"; \
-#     mv "/tmp/chisel" "/usr/local/bin/chisel"; \
-#     chmod +x "/usr/local/bin/chisel"
+RUN apk --update --no-cache add aria2 bash bash-completion build-base curl gzip iptables micro nodejs npm redsocks supervisor wget
 
-# COPY entrypoint.sh /app/entrypoint.sh
-# COPY redsocks.conf /etc/redsocks.conf
-# COPY supervisord.conf /etc/supervisor/supervisord.conf
+RUN curl -Ls -o "/tmp/chisel.gz" "https://github.com/jpillora/chisel/releases/download/v1.7.7/chisel_1.7.7_linux_arm64.gz"; \
+    gzip -d "/tmp/chisel.gz"; \
+    mv "/tmp/chisel" "/usr/local/bin/chisel"; \
+    chmod +x "/usr/local/bin/chisel"
 
-# CMD /bin/sh /app/entrypoint.sh
+COPY entrypoint.sh /app/entrypoint.sh
+COPY redsocks.conf /etc/redsocks.conf
+COPY supervisord.conf /etc/supervisor/supervisord.conf
+
+CMD /bin/sh /app/entrypoint.sh
