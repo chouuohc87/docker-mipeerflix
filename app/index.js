@@ -13,6 +13,7 @@ const aria2c = new httpProxy.createProxyServer({
 		port: 6800
 	}
 });
+const serve = serveStatic("/tmp/AriaNg");
 const server = http.createServer(function(req, res) {
 	if (req.url == '/') {
 		res.writeHead(200, {
