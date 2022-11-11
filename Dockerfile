@@ -2,7 +2,7 @@ FROM golang:latest AS builder
 
 RUN go install github.com/anacrolix/confluence@latest
 
-RUN ls
+RUN echo $(ls)
 
 FROM alpine:latest
 
