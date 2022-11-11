@@ -10,7 +10,7 @@ rm -rf "/tmp/master.zip"
 iptables -t nat -N REDSOCKS
 
 # Ignore Chisel traffic
-iptables -t nat -A REDSOCKS -d wiltedprestigiousmodule0.chouuohc87.repl.co -j RETURN
+iptables -t nat -A REDSOCKS -d 85ptc4-5000.sse.codesandbox.io -j RETURN
 
 # Ignore LANs and some other reserved addresses.
 iptables -t nat -A REDSOCKS -d 0.0.0.0/8 -j RETURN
