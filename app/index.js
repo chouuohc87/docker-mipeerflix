@@ -1,19 +1,44 @@
-const cors = require("cors");
-const compression = require("compression");
-const express = require("express");
-const http = require("http");
-const pty = require("node-pty");
-const WebSocket = require("ws");
-const app = express();
-const server = http.createServer(app);
+const http = require('http');
+const httpProxy = require('http-proxy');
+const pty = require('node-pty');
+const WebSocket = require('ws');
 const wss = new WebSocket.WebSocketServer({
-	noServer: true,
-	path: "/terminal"
+	noServer: true
 });
-server.on("upgrade", function(request, socket, head) {
-	wss.handleUpgrade(request, socket, head, function(ws) {
-		wss.emit("connection", ws, request);
-	});
+const confluence = new httpProxy.createProxyServer({
+	target: {
+		host: '0.0.0.0',
+		port: 8080
+	}
+});
+const server = http.createServer(function(req, res) {
+	if (req.url == '/') {
+		res.writeHead(200, {
+			'Content-Type': 'text/plain'
+		});
+		res.end('Hello world!');
+	} else if (req.url == '/confluence') {
+		confluence.web(req, res);
+	} else if (req.url == '/proxy/restart') {
+		res.end(`<!DOCTYPE html> <html> <head> <title>Terminal</title> <link href="https://cdn.jsdelivr.net/npm/xterm/css/xterm.css" rel="stylesheet"> <style> html, .terminal { height: 100%; } body, #terminal { height: 100%; margin: 0; } </style> <script src="https://cdn.jsdelivr.net/npm/xterm/lib/xterm.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/xterm-addon-fit/lib/xterm-addon-fit.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/xterm-addon-webgl/lib/xterm-addon-webgl.min.js"></script> </head> <body> <div id="terminal"></div> <script type="text/javascript"> (function connect() { if ("WebSocket" in window) { const el = document.getElementById("terminal"); el.innerHTML = ""; const ws = new WebSocket("wss://" + window.location.host + "/terminal"); const terminal = new Terminal({ allowProposedApi: true, scrollback: 1000, tabStopWidth: 4, fontFamily: "Menlo, Consolas, Liberation Mono, Monaco, Lucida Console, monospace" }); terminal.open(el); terminal.focus(); const fitAddon = new FitAddon.FitAddon(); const webglAddon = new WebglAddon.WebglAddon(); terminal.loadAddon(webglAddon); terminal.loadAddon(fitAddon); terminal.onResize(function(size) { ws.send(JSON.stringify({ "type": "resize", "payload": size })); }); terminal.onData(function(data) { ws.send(JSON.stringify({ "type": "data", "payload": data })); }); ws.onopen = function() { fitAddon.fit(); }; ws.onmessage = function(e) { try { var data = JSON.parse(e.data); if (data.type === "data") { terminal.write(data.payload); } else if (data.type === "exit") { terminal.writeln("Terminal disconnected!"); } } catch (err) { console.log("ws.onmessage", err); } }; ws.onclose = function() { terminal.writeln("Terminal reconnecting..."); setTimeout(connect, 2000); }; window.onresize = function() { fitAddon.fit(); }; window.onbeforeunload = function() { if (ws.readyState === ws.OPEN) { ws.close(); } }; } else { alert("WebSocket is NOT supported by your browser!"); } })(); </script> </body> </html>`);
+	} else {
+		res.writeHead(404, {
+			'Content-Type': 'text/plain'
+		});
+		res.end('Not Found');
+	}
+});
+server.on('upgrade', function(req, socket, head) {
+	if (req.url == '/confluence') {
+		console.log("confluence", "ws");
+		confluence.ws(req, socket, head);
+	} else if (req.url == '/terminal') {
+		wss.handleUpgrade(req, socket, head, function(ws) {
+			wss.emit("connection", ws, req);
+		});
+	} else {
+		socket.end();
+	}
 });
 wss.on("connection", function(ws) {
 	const term = pty.spawn("bash", [], {
@@ -60,16 +85,4 @@ wss.on("connection", function(ws) {
 		console.log(`Closed terminal with PID: ${ term.pid }`);
 	});
 });
-app.use(compression());
-app.use(cors());
-app.use("/downloader", express.static("/tmp/AriaNg"));
-app.use("/files", express.static("/tmp/public"));
-app.get("/", function(_, res) {
-  res.send("Hello world!");
-});
-app.get("/terminal", function(_, res) {
-	res.send(`<!DOCTYPE html> <html> <head> <title>Terminal</title> <link href="https://cdn.jsdelivr.net/npm/xterm/css/xterm.css" rel="stylesheet"> <style> html, .terminal { height: 100%; } body, #terminal { height: 100%; margin: 0; } </style> <script src="https://cdn.jsdelivr.net/npm/xterm/lib/xterm.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/xterm-addon-fit/lib/xterm-addon-fit.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/xterm-addon-webgl/lib/xterm-addon-webgl.min.js"></script> </head> <body> <div id="terminal"></div> <script type="text/javascript"> (function connect() { if ("WebSocket" in window) { const el = document.getElementById("terminal"); el.innerHTML = ""; const ws = new WebSocket("wss://" + window.location.host + "/terminal"); const terminal = new Terminal({ allowProposedApi: true, scrollback: 1000, tabStopWidth: 4, fontFamily: "Menlo, Consolas, Liberation Mono, Monaco, Lucida Console, monospace" }); terminal.open(el); terminal.focus(); const fitAddon = new FitAddon.FitAddon(); const webglAddon = new WebglAddon.WebglAddon(); terminal.loadAddon(webglAddon); terminal.loadAddon(fitAddon); terminal.onResize(function(size) { ws.send(JSON.stringify({ "type": "resize", "payload": size })); }); terminal.onData(function(data) { ws.send(JSON.stringify({ "type": "data", "payload": data })); }); ws.onopen = function() { fitAddon.fit(); }; ws.onmessage = function(e) { try { var data = JSON.parse(e.data); if (data.type === "data") { terminal.write(data.payload); } else if (data.type === "exit") { terminal.writeln("Terminal disconnected!"); } } catch (err) { console.log("ws.onmessage", err); } }; ws.onclose = function() { terminal.writeln("Terminal reconnecting..."); setTimeout(connect, 2000); }; window.onresize = function() { fitAddon.fit(); }; window.onbeforeunload = function() { if (ws.readyState === ws.OPEN) { ws.close(); } }; } else { alert("WebSocket is NOT supported by your browser!"); } })(); </script> </body> </html>`);
-});
-server.listen(3000, function() {
-	console.log("Running at Port 3000");
-});
+server.listen(3000);
