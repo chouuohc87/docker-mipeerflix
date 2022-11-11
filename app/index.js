@@ -7,7 +7,7 @@ const wss = new WebSocket.WebSocketServer({
 });
 const confluence = new httpProxy.createProxyServer({
 	target: {
-		host: '127.0.0.1',
+		host: '0.0.0.0',
 		port: 8080
 	}
 });
